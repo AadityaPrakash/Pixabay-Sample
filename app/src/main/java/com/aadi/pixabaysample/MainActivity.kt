@@ -1,6 +1,7 @@
 package com.aadi.pixabaysample
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -9,6 +10,8 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import com.aadi.pixabay.data.network.di.DataModule
+import com.aadi.pixabay.domain.di.DomainModule
 import com.aadi.pixabaysample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
