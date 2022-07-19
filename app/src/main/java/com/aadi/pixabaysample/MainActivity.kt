@@ -10,10 +10,20 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.aadi.pixabay.data.network.di.DataModule
 import com.aadi.pixabay.domain.di.DomainModule
 import com.aadi.pixabaysample.databinding.ActivityMainBinding
+import com.aadi.pixabaysample.screens.home.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -31,10 +41,35 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        binding.etSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                searchAction(binding.etSearch.text.toString())
+                //hideKeyboard()
+                return@OnEditorActionListener true
+            }
+            false
+        })
+
+        // Navigate using the IDs you defined in your Nav Graph
+        //navController.navigate(R.id.detailFragment)
+    }
+
+    private fun searchAction(editText: String) {
+
+        if(editText.isBlank()) {
+            Toast.makeText(this@MainActivity, "Input keywords for search", Toast.LENGTH_SHORT).show()
+            return
         }
+        val viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+
+        viewModel.getSearchQuery()
+
+
+//        lifecycleScope.launch {
+//            mainViewModel.searchQuery(getSearchQuery(editText))
+//        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="colorPrimary">@color/purple_500</color>
+    <color name="colorAccent">#2196F3</color>
+
+
+
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -7,4 +13,19 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grey_5">#f2f2f2</color>
+
+    <color name="text_darkest">#F2000000</color>
+    <color name="text_darker">#DD000000</color>
+    <color name="text_dark">#99000000</color>
+    <color name="text_light">#61000000</color>
+    <color name="text_lightest">#40000000</color>
+    <color name="text_background">#F7F9FC</color>
+    <color name="text_caption">#61000000</color>
+
+    <color name="placeholderColor">#c3c3c3</color>
+    <color name="ripple_color">#eeeeee</color>
+    <color name="cardStrokeColor">#DBDCE0</color>
+    <color name="cardBackgroundColor">#FFFFFF</color>
+    <color name="ThemeBackgroundColor">@color/grey_5</color>
 </resources>

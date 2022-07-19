@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class GetSearchQueryResultsUseCase @Inject constructor(private val getImageSearchRepository: GetImageSearchRepository){
 
-    suspend operator fun invoke() : Flow<Resource<List<ImagesModel>>> = flow {
+    operator fun invoke() : Flow<Resource<List<ImagesModel>>> = flow {
         emit(Resource.Loading(null))
 
         try {
