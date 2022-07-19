@@ -1,9 +1,9 @@
 package com.aadi.pixabay.data.network.di
 
 import com.aadi.pixabay.data.network.api.PixabayAPIService
-import com.aadi.pixabay.data.repository.ImageSearchRepositoryImpl
+import com.aadi.pixabay.data.repository.GetImageSearchRepositoryImpl
 import com.aadi.pixabay.domain.utils.Constants
-import com.aadi.pixabay.domain.repository.ImageSearchRepository
+import com.aadi.pixabay.domain.repository.GetImageSearchRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,8 +29,8 @@ object DataModule {
     }
 
     @Provides
-    fun provideImageSearchRepository(pixabayAPIService: PixabayAPIService): ImageSearchRepository {
-        return ImageSearchRepositoryImpl(pixabayAPIService = pixabayAPIService)
+    fun provideImageSearchRepository(pixabayAPIService: PixabayAPIService): GetImageSearchRepository {
+        return GetImageSearchRepositoryImpl(pixabayAPIService = pixabayAPIService)
     }
 }
 
