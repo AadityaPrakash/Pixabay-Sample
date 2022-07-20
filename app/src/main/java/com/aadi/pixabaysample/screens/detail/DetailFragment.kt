@@ -1,22 +1,20 @@
 package com.aadi.pixabaysample.screens.detail
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.aadi.pixabaysample.R
+import androidx.navigation.fragment.navArgs
+import coil.load
+import com.aadi.pixabay.domain.models.ImagesModel
 import com.aadi.pixabaysample.databinding.FragmentDetailBinding
 
 class DetailFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = DetailFragment()
-    }
-
-    private lateinit var viewModel: DetailViewModel
     private lateinit var binding: FragmentDetailBinding
+    private val args: DetailFragmentArgs by navArgs()
+    private lateinit var item: ImagesModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,8 +26,19 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
-        // TODO: Use the ViewModel
+        item = args.image
+        populateUI()
+    }
+
+    private fun populateUI() {
+
+        binding.apply {
+            detailTitle.text = item.user
+            detailSubtitle.text = item.tags
+            detailImage.load(item.largeImageURL) {
+                crossfade(true)
+            }
+        }
     }
 
 }
