@@ -1,5 +1,9 @@
 package com.aadi.pixabay.domain.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class ImagesModel (
     val collections: Int,
     val comments: Int,
@@ -23,4 +27,4 @@ data class ImagesModel (
     val webformatHeight: Int,
     val webformatURL: String,
     val webformatWidth: Int
-)
+): Parcelable
