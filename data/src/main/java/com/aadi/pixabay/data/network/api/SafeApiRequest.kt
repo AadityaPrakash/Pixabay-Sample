@@ -14,12 +14,12 @@ abstract class SafeApiRequest {
             return response.body()!!
 
         } else {
-            val responseErr = response.errorBody()?.string()
+            val responseErr = response.errorBody()?.toString()
             val message = StringBuilder()
                 responseErr.let {
 
                     try {
-                        message.append(JSONObject(it).getString("error"))
+                        message.append(it?.let { it1 -> JSONObject(it1).getString("error") })
 
                     } catch (e: JSONException){
 

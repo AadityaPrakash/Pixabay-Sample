@@ -1,35 +1,29 @@
 package com.aadi.pixabaysample.screens.home
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.lifecycle.get
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.aadi.pixabaysample.R
+import com.aadi.pixabaysample.toolkit.Utils
 import com.aadi.pixabaysample.adapter.ImageResultAdapter
+import com.aadi.pixabaysample.adapter.bindRecyclerView
 import com.aadi.pixabaysample.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class HomeFragment() : Fragment() {
 
-    companion object {
-        fun newInstance() = HomeFragment()
-    }
-
+    private val viewModel: HomeViewModel by viewModels()
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var viewModel: HomeViewModel
 
-    override fun onCreateView(
+    override fun onCreateView (
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
@@ -39,32 +33,56 @@ class HomeFragment() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mContext = view.context
-        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+        initLayout()
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launchWhenResumed {
             viewModel.results.collectLatest {
-
                 val res = viewModel.results.value
 
-                if(!res.isLoading) {
-                    binding.loadingLayout.progressBar.visibility = View.GONE
+                if (!res.isLoading) {
+                    hideLoading()
 
-                    if(res.error.isNotBlank()){
-                        binding.errorLayout.rootLayout.visibility = View.VISIBLE
-                        binding.errorLayout.errorSubtitle.text = res.error.toString()
+                    if (res.error.isNotBlank()) showErrorLayout(res.error)
 
-                    } else {
-                        binding.recyclerView.visibility = View.VISIBLE
-                        //Toast.makeText(mContext, "Data available", Toast.LENGTH_SHORT).show()
-
-                        Log.d("TAG", res.data.toString())
-                        binding.recyclerView.adapter = ImageResultAdapter(res.data!!)
-                        binding.recyclerView.layoutManager = LinearLayoutManager(mContext)
-                    }
+                    res.data?.let { bindRecyclerView(binding.recyclerView, it) }
                 }
             }
         }
     }
 
+    private fun initLayout() {
+
+        binding.etSearch.setOnEditorActionListener(object: TextView.OnEditorActionListener {
+
+            override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    Utils.hideKeyboard(v.context, binding.etSearch)
+                    viewModel.searchQuery(v.context, binding.etSearch.text.toString())
+
+                    return true
+                }
+                return false
+            }
+        })
+
+        binding.apply {
+            recyclerView.adapter = ImageResultAdapter()
+            lifecycleOwner = this@HomeFragment
+            executePendingBindings()
+        }
+    }
+
+    private fun showErrorLayout(error: String) {
+        binding.apply {
+            errorLayout.rootLayout.visibility = View.VISIBLE
+            recyclerView.visibility = View.GONE
+            errorLayout.errorSubtitle.text = error
+        }
+    }
+
+    private fun hideLoading() {
+        binding.apply {
+            loadingLayout.progressBar.visibility = View.GONE
+        }
+    }
 }

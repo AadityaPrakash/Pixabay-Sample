@@ -1,8 +1,6 @@
 package com.aadi.pixabay.domain.utils
 
-class Helper {
-
-    companion object {
+object Helper {
 
         fun getFormattedSearchQuery(query: String): String {
             val q = query
@@ -12,5 +10,4 @@ class Helper {
 
             return q.joinToString(separator = "+")
         }
-    }
 }

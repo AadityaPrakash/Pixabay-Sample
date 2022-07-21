@@ -1,14 +1,18 @@
 package com.aadi.pixabay.domain.models
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
+@Entity
 @Parcelize
 data class ImagesModel (
+    @PrimaryKey(autoGenerate = false)
+    val id: Int,
     val collections: Int,
     val comments: Int,
     val downloads: Int,
-    val id: Int,
     val imageHeight: Int,
     val imageSize: Int,
     val imageWidth: Int,

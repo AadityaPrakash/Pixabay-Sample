@@ -14,7 +14,6 @@ class DetailFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailBinding
     private val args: DetailFragmentArgs by navArgs()
-    private lateinit var item: ImagesModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,19 +25,15 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        item = args.image
         populateUI()
     }
 
     private fun populateUI() {
+        bind(args.image)
+    }
 
-        binding.apply {
-            detailTitle.text = item.user
-            detailSubtitle.text = item.tags
-            detailImage.load(item.largeImageURL) {
-                crossfade(true)
-            }
-        }
+    private fun bind(item: ImagesModel) {
+        binding.detail = item
     }
 
 }
