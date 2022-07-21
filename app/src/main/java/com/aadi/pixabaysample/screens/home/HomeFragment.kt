@@ -8,14 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.aadi.pixabaysample.R
 import com.aadi.pixabaysample.toolkit.Utils
 import com.aadi.pixabaysample.adapter.ImageResultAdapter
 import com.aadi.pixabaysample.adapter.bindRecyclerView
 import com.aadi.pixabaysample.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import org.w3c.dom.Text
 
 @AndroidEntryPoint
 class HomeFragment() : Fragment() {
@@ -44,7 +47,9 @@ class HomeFragment() : Fragment() {
 
                     if (res.error.isNotBlank()) showErrorLayout(res.error)
 
-                    res.data?.let { bindRecyclerView(binding.recyclerView, it) }
+                    if(res.data.isNullOrEmpty()) showErrorLayout()
+                    else bindRecyclerView(binding.recyclerView, res.data)
+
                 }
             }
         }
@@ -52,18 +57,27 @@ class HomeFragment() : Fragment() {
 
     private fun initLayout() {
 
-        binding.etSearch.setOnEditorActionListener(object: TextView.OnEditorActionListener {
-
-            override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    Utils.hideKeyboard(v.context, binding.etSearch)
-                    viewModel.searchQuery(v.context, binding.etSearch.text.toString())
-
-                    return true
-                }
-                return false
+        binding.sb.apply {
+            etSearch.setOnFocusChangeListener { view, hasFocus ->
+                toolbarLeftBtn.visibility = if(hasFocus) View.VISIBLE else View.GONE
             }
-        })
+            toolbarLeftBtn.setOnClickListener {
+                if(etSearch.text.isNotBlank()) etSearch.text.clear() else Utils.hideKeyboard(it.context, etSearch)
+            }
+
+            etSearch.setOnEditorActionListener(object: TextView.OnEditorActionListener {
+
+                override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                        Utils.hideKeyboard(v.context, etSearch)
+                        viewModel.searchQuery(v.context, etSearch.text.toString())
+
+                        return true
+                    }
+                    return false
+                }
+            })
+        }
 
         binding.apply {
             recyclerView.adapter = ImageResultAdapter()
@@ -80,9 +94,19 @@ class HomeFragment() : Fragment() {
         }
     }
 
+    private fun showErrorLayout() {
+        binding.apply {
+            errorLayout.rootLayout.visibility = View.VISIBLE
+            recyclerView.visibility = View.GONE
+            errorLayout.errorTitle.text = resources.getText(R.string.msg_empty_title)
+            errorLayout.errorSubtitle.text = resources.getText(R.string.msg_empty)
+        }
+    }
+
     private fun hideLoading() {
         binding.apply {
             loadingLayout.progressBar.visibility = View.GONE
+            errorLayout.rootLayout.visibility = View. GONE
         }
     }
 }

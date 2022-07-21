@@ -13,38 +13,37 @@
         android:id="@+id/itemCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:clickable="true"
+        android:layout_marginHorizontal="@dimen/margin_8"
+        android:layout_marginBottom="@dimen/margin_8"
         android:focusable="true"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="12dp"
         app:cardElevation="0dp"
+        app:rippleColor="@color/ripple_color"
         app:cardPreventCornerOverlap="true"
         app:strokeWidth="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="112dp"
+            android:layout_marginStart="4dp">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/itemImgLyt"
-                android:layout_width="84dp"
-                android:layout_height="84dp"
-                app:cardCornerRadius="12dp"
-                android:layout_margin="8dp"
-                app:strokeWidth="0dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:clipToPadding="true"
+                app:cardCornerRadius="8dp"
                 app:cardElevation="0dp"
-                app:cardBackgroundColor="@android:color/transparent"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="false"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintEnd_toStartOf="@+id/chipsPrograms">
 
                 <ImageView
                     android:id="@+id/itemImg"
-                    android:layout_width="84dp"
-                    android:layout_height="84dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:scaleType="centerCrop"
                     app:imageUrl="@{item.previewURL}"
@@ -52,47 +51,46 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:id="@+id/itemTitle"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipsPrograms"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:gravity="center|start"
-                android:maxLines="1"
-                android:text="@{item.user}"
-                android:textColor="@color/text_darker"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                app:layout_constraintEnd_toStartOf="@+id/itemBtn"
+                android:layout_height="0dp"
+                app:chipSpacing="8dp"
+                app:singleSelection="false"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="8dp"
                 app:layout_constraintStart_toEndOf="@+id/itemImgLyt"
-                app:layout_constraintTop_toTopOf="@+id/itemImgLyt" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/itemSubtitle"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+            </com.google.android.material.chip.ChipGroup>
 
             <TextView
                 android:id="@+id/itemSubtitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center|start"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="8dp"
                 android:maxLines="1"
                 android:textColor="@color/text_dark"
-                android:text="@{item.tags}"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                app:layout_constraintEnd_toStartOf="@+id/itemBtn"
-                app:layout_constraintStart_toEndOf="@+id/itemImgLyt"
-                app:layout_constraintTop_toBottomOf="@+id/itemTitle" />
-
-            <ImageView
-                android:id="@+id/itemBtn"
-                android:layout_width="48dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:scaleType="center"
-                android:src="@drawable/ic_arrow_right"
-                app:layout_constraintTop_toTopOf="parent"
+                android:text="@{item.user}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintStart_toEndOf="@+id/itemImgLyt"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/divider_01"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:alpha="0.5"
+                android:background="@color/text_lightest"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

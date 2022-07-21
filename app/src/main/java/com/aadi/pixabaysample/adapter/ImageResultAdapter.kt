@@ -12,6 +12,8 @@ import com.aadi.pixabaysample.R
 import com.aadi.pixabaysample.databinding.ItemSearchResultBinding
 import com.aadi.pixabaysample.screens.home.HomeFragmentDirections
 import com.aadi.pixabaysample.screens.home.HomeState
+import com.aadi.pixabaysample.toolkit.Utils
+import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -74,6 +76,15 @@ class ImageResultAdapter
 
         fun bind(image: ImagesModel) {
             binding.item = image
+            genTags(Utils.getTagList(image.tags))
+        }
+
+        private fun genTags(tagList: Array<String>) {
+            for (tag in tagList) {
+                val chip = Chip(binding.root.context)
+                chip.text = tag
+                binding.chipsPrograms.addView(chip)
+            }
         }
     }
 }

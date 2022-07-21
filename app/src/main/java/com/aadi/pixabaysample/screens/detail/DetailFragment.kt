@@ -1,14 +1,17 @@
 package com.aadi.pixabaysample.screens.detail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import coil.load
 import com.aadi.pixabay.domain.models.ImagesModel
 import com.aadi.pixabaysample.databinding.FragmentDetailBinding
+import com.aadi.pixabaysample.toolkit.Utils
+import com.google.android.material.chip.Chip
+
 
 class DetailFragment : Fragment() {
 
@@ -25,6 +28,9 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.toolbar.setOnClickListener {
+            findNavController().navigateUp()
+        }
         populateUI()
     }
 
@@ -34,6 +40,15 @@ class DetailFragment : Fragment() {
 
     private fun bind(item: ImagesModel) {
         binding.detail = item
+        genTags(Utils.getTagList(item.tags))
+    }
+
+    private fun genTags(tagList: Array<String>) {
+        for (tag in tagList) {
+            val chip = Chip(context)
+            chip.text = tag
+            binding.chipsPrograms.addView(chip)
+        }
     }
 
 }

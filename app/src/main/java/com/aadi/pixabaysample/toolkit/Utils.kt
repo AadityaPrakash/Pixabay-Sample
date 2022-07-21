@@ -9,6 +9,8 @@ class Utils {
 
     companion object {
         fun hideKeyboard(context: Context, view: View){
+            if(view.hasFocus())
+                view.clearFocus()
             val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0)
         }
@@ -19,6 +21,13 @@ class Utils {
                 return false
             }
             return true
+        }
+
+        fun getTagList(tags: String): Array<String> {
+            return tags
+                .trim()
+                .split(",".toRegex())
+                .toTypedArray()
         }
     }
 }

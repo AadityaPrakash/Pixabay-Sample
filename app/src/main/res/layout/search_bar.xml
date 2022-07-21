@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:clipToPadding="false"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="3dp"
+        app:cardUseCompatPadding="false"
+        app:layout_collapseMode="parallax">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btMenu"
+                android:layout_width="@dimen/toolbar_height"
+                android:layout_height="@dimen/toolbar_height"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:srcCompat="@drawable/ic_search"
+                app:tint="@color/grey_60"
+                android:clickable="false"/>
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:focusedByDefault="false"
+                android:hint="Search Pixabay Images"
+                android:imeOptions="actionSearch"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+            <ImageButton
+                android:id="@+id/toolbarLeftBtn"
+                android:layout_width="@dimen/toolbar_height"
+                android:layout_height="@dimen/toolbar_height"
+                android:visibility="gone"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:srcCompat="@drawable/ic_close"
+                app:tint="@color/grey_60"
+                />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

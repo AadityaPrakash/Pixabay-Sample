@@ -5,6 +5,8 @@
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:title="@string/action_search"
+        android:icon="@drawable/ic_search"
+        android:iconTint="@color/grey_60"
+        app:showAsAction="always" />
 </menu>

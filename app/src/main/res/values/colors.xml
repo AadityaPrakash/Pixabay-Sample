@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">@color/purple_500</color>
+    <color name="colorPrimary">@color/colorAccent</color>
     <color name="colorAccent">#2196F3</color>
 
 
@@ -28,4 +28,7 @@
     <color name="cardStrokeColor">#DBDCE0</color>
     <color name="cardBackgroundColor">#FFFFFF</color>
     <color name="ThemeBackgroundColor">@color/grey_5</color>
+
+    <color name="grey_60">#666666</color>
+    <color name="grey_40">#999999</color>
 </resources>

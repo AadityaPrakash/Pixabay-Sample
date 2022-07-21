@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Pixabay Sample</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -12,4 +12,6 @@
     <string name="msg_error">Something went wrong, please try again later</string>
     <string name="alertTitle">Leave current page?</string>
     <string name="alertSubtitle">Are you sure you want to leave the current page.</string>
+    <string name="msg_empty">Sorry, we couldn\'t find any matches. Please check the spelling and try again.</string>
+    <string name="msg_empty_title">No results found</string>
 </resources>
