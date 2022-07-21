@@ -2,6 +2,7 @@ package com.aadi.pixabay.domain.usecases
 
 import com.aadi.pixabay.domain.models.ImagesModel
 import com.aadi.pixabay.domain.repository.GetImageSearchRepository
+import com.aadi.pixabay.domain.utils.Config
 import com.aadi.pixabay.domain.utils.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -14,7 +15,7 @@ class GetDefaultKeywordResultUseCase @Inject constructor(private val repository:
         emit(Resource.Loading(null))
 
         try {
-            val response = repository.getSearchResult("fruits", 1, 20)
+            val response = repository.getSearchResult(Config.TRIGGER_KEYWORD, 1, Config.ITEMS_PER_PAGE)
             emit(Resource.Success(data = response))
 
         } catch (e: Exception){

@@ -6,19 +6,13 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.aadi.pixabay.domain.models.ImagesModel
 import com.aadi.pixabaysample.R
 import com.aadi.pixabaysample.databinding.ItemSearchResultBinding
 import com.aadi.pixabaysample.screens.home.HomeFragmentDirections
-import com.aadi.pixabaysample.screens.home.HomeState
 import com.aadi.pixabaysample.toolkit.Utils
 import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import javax.inject.Inject
-import javax.inject.Singleton
 
 class ImageResultAdapter
     : ListAdapter<ImagesModel, ImageResultAdapter.ResultsViewHolder>(DiffCallback) {
@@ -83,7 +77,10 @@ class ImageResultAdapter
             for (tag in tagList) {
                 val chip = Chip(binding.root.context)
                 chip.text = tag
+                chip.isClickable = false
+                chip.isCheckable = false
                 binding.chipsPrograms.addView(chip)
+
             }
         }
     }

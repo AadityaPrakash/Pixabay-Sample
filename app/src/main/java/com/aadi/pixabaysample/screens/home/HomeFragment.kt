@@ -81,8 +81,8 @@ class HomeFragment() : Fragment() {
 
         binding.apply {
             recyclerView.adapter = ImageResultAdapter()
-            lifecycleOwner = this@HomeFragment
             executePendingBindings()
+            recyclerView.setHasFixedSize(true)
         }
     }
 

@@ -13,6 +13,9 @@ interface PixabayImageDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllResults(list: List<ImagesModel>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertRecord(image: ImagesModel)
+
     @Query("SELECT * FROM PixabayImageDatabase")
     fun getAllItems(): PagingSource<Int, ImagesModel>
 

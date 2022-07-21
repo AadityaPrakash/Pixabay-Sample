@@ -14,8 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:layout_marginHorizontal="@dimen/margin_8"
-        android:layout_marginBottom="@dimen/margin_8"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginBottom="12dp"
         android:focusable="true"
         app:cardElevation="0dp"
         app:rippleColor="@color/ripple_color"
@@ -24,7 +24,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="112dp"
+            android:layout_height="116dp"
             android:layout_marginStart="4dp">
 
             <com.google.android.material.card.MaterialCardView

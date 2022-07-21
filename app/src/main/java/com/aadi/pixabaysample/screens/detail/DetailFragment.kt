@@ -12,7 +12,6 @@ import com.aadi.pixabaysample.databinding.FragmentDetailBinding
 import com.aadi.pixabaysample.toolkit.Utils
 import com.google.android.material.chip.Chip
 
-
 class DetailFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailBinding
@@ -39,14 +38,18 @@ class DetailFragment : Fragment() {
     }
 
     private fun bind(item: ImagesModel) {
-        binding.detail = item
-        genTags(Utils.getTagList(item.tags))
+        binding.apply {
+            detail = item
+            genTags(Utils.getTagList(item.tags))
+        }
     }
 
     private fun genTags(tagList: Array<String>) {
         for (tag in tagList) {
             val chip = Chip(context)
             chip.text = tag
+            chip.isClickable = false
+            chip.isCheckable = false
             binding.chipsPrograms.addView(chip)
         }
     }
