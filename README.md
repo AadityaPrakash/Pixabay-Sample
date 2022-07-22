@@ -19,3 +19,4 @@ This app shows the usage of the various Android Architecture Component in collab
 - Android Architecture Components
 
 
+![preview](https://user-images.githubusercontent.com/8015473/180343871-69555826-5bed-401c-ac67-37be29591f3e.gif)
