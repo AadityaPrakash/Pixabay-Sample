@@ -49,12 +49,10 @@
         android:padding="8dp"
         android:clipToPadding="false"
         tools:itemCount="8"
-        app:listData="@{viewModel.results.component2()}"
         tools:listitem="@layout/item_search_result"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintTop_toBottomOf="@+id/pageTitle"/>
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

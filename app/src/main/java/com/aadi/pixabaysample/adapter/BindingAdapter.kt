@@ -12,14 +12,14 @@ import com.aadi.pixabaysample.R
 /**
  * Updates the data shown in the [RecyclerView].
  */
-@BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<ImagesModel>?) {
-    recyclerView.visibility = View.VISIBLE
-    val adapter = recyclerView.adapter as ImageResultAdapter?
-    adapter?.let {
-        adapter.submitList(data)
-    }
-}
+//@BindingAdapter("listData")
+//fun bindRecyclerView(recyclerView: RecyclerView, data: List<ImagesModel>?) {
+//    recyclerView.visibility = View.VISIBLE
+//    val adapter = recyclerView.adapter as ImageResultAdapter?
+//    adapter?.let {
+//        adapter.submitList(data)
+//    }
+//}
 
 /**
  * Uses the Coil library to load an image by URL into an [ImageView]
