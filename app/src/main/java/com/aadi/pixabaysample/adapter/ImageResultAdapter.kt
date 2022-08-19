@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.aadi.pixabay.domain.models.ImagesModel
 import com.aadi.pixabaysample.R
@@ -15,7 +14,13 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class ImageResultAdapter
-    : ListAdapter<ImagesModel, ImageResultAdapter.ResultsViewHolder>(DiffCallback) {
+    : RecyclerView.Adapter<ImageResultAdapter.ResultsViewHolder>() {
+
+    private var imageItem: List<ImagesModel> = emptyList()
+
+    fun setImageAdapter(item: List<ImagesModel>) {
+        this.imageItem = item
+    }
 
     /**
      * Create new [RecyclerView] item views (invoked by the layout manager)
@@ -28,7 +33,7 @@ class ImageResultAdapter
 
     override fun onBindViewHolder(holder: ResultsViewHolder, position: Int) {
 
-        val currImage = getItem(position)
+        val currImage = imageItem[position]
         holder.bind(currImage)
 
         holder.binding.itemCard.setOnClickListener { mView ->
@@ -70,6 +75,7 @@ class ImageResultAdapter
 
         fun bind(image: ImagesModel) {
             binding.item = image
+            binding.executePendingBindings()
             genTags(Utils.getTagList(image.tags))
         }
 
@@ -83,5 +89,9 @@ class ImageResultAdapter
 
             }
         }
+    }
+
+    override fun getItemCount(): Int {
+        return imageItem.size
     }
 }

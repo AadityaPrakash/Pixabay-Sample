@@ -8,21 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.aadi.pixabaysample.R
 import com.aadi.pixabaysample.toolkit.Utils
 import com.aadi.pixabaysample.adapter.ImageResultAdapter
-import com.aadi.pixabaysample.adapter.bindRecyclerView
 import com.aadi.pixabaysample.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import org.w3c.dom.Text
 
 @AndroidEntryPoint
 class HomeFragment() : Fragment() {
 
+    private lateinit var imageResultAdapter: ImageResultAdapter
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var binding: FragmentHomeBinding
 
@@ -47,9 +45,12 @@ class HomeFragment() : Fragment() {
 
                     if (res.error.isNotBlank()) showErrorLayout(res.error)
 
-                    if(res.data.isNullOrEmpty()) showErrorLayout()
-                    else bindRecyclerView(binding.recyclerView, res.data)
-
+                    if(!res.data.isNullOrEmpty()){
+                        imageResultAdapter.setImageAdapter(res.data!!)
+                        imageResultAdapter.notifyDataSetChanged()
+                    }
+                    else
+                        showErrorLayout()
                 }
             }
         }
@@ -57,14 +58,14 @@ class HomeFragment() : Fragment() {
 
     private fun initLayout() {
 
+        imageResultAdapter = ImageResultAdapter()
+        binding.recyclerView.adapter = imageResultAdapter
+        binding.recyclerView.setHasFixedSize(true)
+
         binding.sb.apply {
-            etSearch.setOnFocusChangeListener { view, hasFocus ->
+            etSearch.setOnFocusChangeListener { _, hasFocus ->
                 toolbarLeftBtn.visibility = if(hasFocus) View.VISIBLE else View.GONE
             }
-            toolbarLeftBtn.setOnClickListener {
-                if(etSearch.text.isNotBlank()) etSearch.text.clear() else Utils.hideKeyboard(it.context, etSearch)
-            }
-
             etSearch.setOnEditorActionListener(object: TextView.OnEditorActionListener {
 
                 override fun onEditorAction(v: TextView, actionId: Int, event: KeyEvent?): Boolean {
@@ -77,12 +78,9 @@ class HomeFragment() : Fragment() {
                     return false
                 }
             })
-        }
-
-        binding.apply {
-            recyclerView.adapter = ImageResultAdapter()
-            executePendingBindings()
-            recyclerView.setHasFixedSize(true)
+            toolbarLeftBtn.setOnClickListener {
+                if(etSearch.text.isNotBlank()) etSearch.text.clear() else Utils.hideKeyboard(it.context, etSearch)
+            }
         }
     }
 
